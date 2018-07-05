@@ -1,0 +1,23 @@
+{
+  "name": "simple-chat",
+  "version": "0.0.1",
+  "description": "Basic web chat with Nodejs, Express and Socket.io",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lamperem/simple-chat.git"
+  },
+  "author": "Gustavo Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lamperem/simple-chat/issues"
+  },
+  "homepage": "https://github.com/lamperem/simple-chat#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
+}

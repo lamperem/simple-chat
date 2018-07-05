@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+
+    <style type="text/css">
+      
+body{  
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+h1, ul, ul li, p, input[type="text"], button{
+  font-family: "Arial", Times New Roman, serif;
+}
+
+main{
+  width: 450px;
+  margin: 0 auto;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 25px;
+  min-height: 500px;
+}
+
+ul{
+  list-style: none;
+  padding-left: 0px;
+}
+
+ul li{
+  background-color: #eee;
+  padding: 5px;
+  font-style: italic;
+  color: #fff;
+}
+
+ul li:nth-child(odd) { background: #6be4a8; }
+
+footer{
+  position: absolute; 
+  bottom: 5px;
+}
+
+input[type="text"]{
+  width: 380px;
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+
+button{
+  border: 1px solid #333;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+footer p{
+  font-size: 10px;
+  text-align: right;
+}
+
+
+    </style>
+
+  </head>
+  <body>
+
+    <main>
+
+      <header>
+        <h1>Simple Chat =)</h1>
+      </header>
+      
+      <section>
+        <ul id="messages"></ul>        
+      </section>
+      
+      <footer>
+        <hr>
+        <form>
+          <input type="text" id="m" name="m" placeholder="Insert your message..." autocomplete="off">
+          <button type="submit">Send</button>
+        </form>
+        <p>Simple Chat v 0.0.1</p>
+      </footer> 
+
+    </main>
+
+
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      function getNickName(){
+        var name = prompt('Enter your nick');
+        return name;
+      }
+      $(function () {
+        var socket = io(),
+            nick = getNickName();
+
+            // login new user
+            socket.emit('chat message', nick + ' is online =)');
+
+        $('form').submit(function(){
+          var msg = nick + ': ' + $('#m').val();
+          socket.emit('chat message', msg);
+          $('#m').val('');
+          return false;
+        });
+        socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+/*
+        socket.on('connect', function() {
+            console.log("connected from the client side");
+        });
+        $('#connect_button').click(function(){
+            socket.connect();
+        });
+        $('#disconnect_button').click(function(){
+            socket.disconnect();
+        });
+*/
+
+      });
+    </script>
+  </body>
+</html>
